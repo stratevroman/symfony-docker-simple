@@ -66,6 +66,7 @@
         "codeception/codeception": "^4.1",
         "codeception/module-asserts": "^1.3",
         "codeception/module-phpbrowser": "^1.0",
-        "codeception/module-symfony": "^2.0"
+        "codeception/module-symfony": "^2.0",
+        "symfony/maker-bundle": "^1.33"
     }
 }
