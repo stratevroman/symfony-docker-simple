@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  webserver:
+    build:
+      context: docker/nginx/1.19
+    volumes:
+      - ./var/log/nginx:/var/log/nginx
+      - .:/application
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - php
+    networks:
+      - internal
+  php:
+    build:
+      context: docker/php/8.0/${APP_ENV}
+    restart: always
+    volumes:
+      - .:/application
+    environment:
+      PHP_IDE_CONFIG: "serverName=Docker"
+    links:
+      - database
+    networks:
+      - internal
+  database:
+    image: postgres:12
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+      - POSTGRES_DB=test
+    volumes:
+      - ./var/database:/var/lib/postgresql/
+    ports:
+      - 5432:5432
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -   subnet: 192.168.220.0/28
