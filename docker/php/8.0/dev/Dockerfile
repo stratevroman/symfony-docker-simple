@@ -1,8 +1,8 @@
-FROM php:7.4-fpm
+FROM php:8.3-fpm
 
 RUN update-ca-certificates \
     && apt-get update \
-    && pecl install xdebug-3.0.4 \
+    && pecl install xdebug-3.3.1 \
     && apt-get install -y curl git unzip libpq-dev libcurl4-openssl-dev libzip-dev libssl-dev librabbitmq-dev libxml2-dev libsodium-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql zip sockets soap intl bcmath \
     && docker-php-ext-enable xdebug pdo_pgsql pgsql
